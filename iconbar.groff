@@ -1,0 +1,175 @@
+
+.\"****************************************************************************
+.\" Iconbar - a desktop icon management utility compatible with the IRIX(TM) 4dwm(TM)
+.\" Copyright 2003 Steven Queen
+.\" 
+.\" This file is part of Iconbar.
+.\" 
+.\" Iconbar is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either version 2 of the License, or
+.\" (at your option) any later version.
+.\" 
+.\" Iconbar is distributed in the hope that it will be useful,
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\" 
+.\" You should have received a copy of the GNU General Public License
+.\" along with Iconbar; if not, write to the Free Software
+.\" Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+.\"**************************************************************************
+.TH \fBICONBAR\fR 1 "27 May 2006" "\fBv\fI0.8\fR"
+.SH NAME
+\fBiconbar\fR - a desktop utility for managing icon windows
+.SH SYNOPSIS
+.BR iconbar " [-option1 value1] [-option2 value2] [...]" 
+.SH DESCRIPTION
+iconbar is intended to be a drop-in replacement for the (OSF/Motif) standard \fIiconbox\fR application that is included as part of the 
+\fB4dwm\fR(1X) window manager running under the \IRIX(tm)
+operating system. It uses OSF/Motif, X Toolkit Intrinsics and Xlib functions to manipulate windows on the desktop.
+
+Iconbar creates an unmanaged window at the bottom of the screen that contains iconic representation of the applications (programs with top level windows) currently running on the desktop. The application may be in a visible (active) or invisible (iconic) state. Positioning the pointer above the icon of the application and pressing the \fILeft\fR button once will cause it to be mapped (if iconic) and raised on the desktop.
+
+In order appear on the iconbar, an application's top-level window must meet the following criteria: lives in the window hierarchy of the root window, has a \fIWM_STATE\fR property, has either a \fIWM_NAME\fR or \fIWM_ICON_NAME\fR property, and is not on the \fIapps_list\fR associated with iconbar's \fBignoreApps\fR resource.
+
+.SS Multi-Channels
+Since version 0.8, Iconbar will automatically center itself in channel zero on those system that have multiple channels per pipe.
+
+.SS Multi-Desks
+Iconbar does not explicitly support the \fB4dwm\fR concept of multiple desktops. However, since it is not managed by the window manager it does appear on every desktop and is capable of managing icons of top-level windows across all desktops. Since version 0.8, Iconbar will automatically center itself in channel zero on those system that have multiple channels per pipe.
+
+.LP
+.SS Disclaimer
+\fB4dwm\fR and IRIX are trademarks of Silicon Graphics Inc. The
+iconbar application is not endorsed by or affiliated with Silicon Graphics Incorporated. 
+
+.SS Copyright
+Iconbar is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+ 
+Iconbar is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with Iconbar; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+.SH OPTIONS/RESOURCES
+The following added resources are intended for user customization. They may be set using either a command line syntax as shown below, or in a resources file such as the site default resources (/usr/lib/X11/app-defaults/Iconbar) or the users personal default resources ($HOME/.Xdefaults).
+
+
+.IP "-\fBanimate\fR \fIincrements\fR"
+An integer value that specifies the number of increments used in the animated pop-up of the iconbar. In this context 1 is fastest and 20 is slowest. The default is \fI5\fR. Resource: \fBanimate\fR.
+
+.IP "-\fBborder\fR \fINone\fR|\fIDefault\fR|\fI<filename>\fR"
+A string that describes either the type of decorative border to apply to the left and right ends of the iconbar. The ends will be rectangular if \fINone\fR is specified, curved if \fIDefault\fR is used. Alternatively, the user may pass a file name of an RGB image in SGI's format that will be used to mask the ends of the iconbar. Only left end image is required since the application internally mirrors it and applies it to the right side as well. The default is \fIDefault\fR. Resource: \fBborder\fR.
+
+.IP "-\fBhide\fR \fITrue\fR|\fIFalse\fR"
+If \fITrue\fR (default) causes the icon to "shrink" it's height down to the values specified by \fBhideheight\fR after the cursor leaves the application windows. The speed of the animate shrinkage is controlled by the \fBanimate\fR resource, the hidden height by the \fBhideheight\fR resource and the delay before the hide occurs by the \fBhidecount\fR resource. Pressing either the \fIEsc\fR or \fIspace\fR keys triggers and immediate hide. Resource: \fBhide\fR.
+
+.IP "-\fBhidecount\fR \fIcount\fR"
+An integer value that specifies that the application should wait \fIcount\fR number of 200 millisecond update intervals after the cursor is moved out of the bar windows, before hiding the iconbar. The default is \fI10\fR which equates to a 2 second delay. Resource: \fBhidecount\fR.
+
+.IP "-\fBhideheight\fR \fIpixels\fR"
+An integer value determines the height in pixels of the hidden iconbar. The default is \fI1\fR. Resource: \fBhideheight\fR.
+
+.IP "-\fBhighlightFG\fR \fIcolor\fR"
+A string describing the \fIcolor\fR that the foreground text is changed to when the cursor enters a particular icon window. The default is \fIblue\fR. Resource: \fBhighlightFG\fR.
+
+.IP "-\fBhorzmin\fR \fIpixels\fR"
+An integer value indicating the minimum horizontal screen location for the center of the iconbar. The default is \fI0\fR. Resource: \fBhorzmin\fR.
+
+.IP "-\fBhorzmax\fR \fIpixels\fR"
+An integer value indicating the maximum horizontal screen location for the center of the iconbar. The default is \fI0\fR. Resource: \fBhorzmin\fR.
+
+.IP "-\fBhorzshift\fR \fI[-]pixels\fR"
+An integer value indicating the number of pixels to displace the iconbar from the center of the screen. The default is \fI0\fR. Resource: \fBhorzshift\fR.
+
+.IP "-\fBignoreApps\fR \fIapp_list\fR"
+\fIapp_list\fR is a colon delimited string listing the window names of applications that the iconbar program will ignore (i.e. not manage). The window name is the \fIWM_NAME\fR window manager hint property that can be retrieved for a particular window using the \fBxprop\fR(1) command. The default string is \fIToolChest\fR (iconbar always ignores itself). Resource: \fBignoreApps\fR.
+
+.IP "-\fBmagnify\fR \fITrue\fR|\fIFalse\fR"
+If \fITrue\fR (default) causes the icon pixmap beneath the cursor to be "magnified" to full size which, by default is 85x67 pixels. Resource: \fBmagnify\fR.
+
+.IP "-\fBmargin\fR \fIpixels\fR"
+An integer number of \fIpixels\fR to be added as margin on both sides of each icon pixmap.  The color of the margin is controlled by the resource \fBiconpixmap.background\fR. The default is \fI1\fR. Resource: \fBmargin\fR.
+
+.IP "-\fBpath\fR \fImethodA:methodB:...\fR"
+Iconbar retrieves the icon pixmaps for each application by sequentially attempting the following methods: 
+(\fIWMHINTS\fR) retrieving an icon window hint property (currently not functional see \fBBUGS\fR), retrieving an icon pixmap hint property
+(\fIFILE\fR) an \fBrgb\fR(4) format image file in the user's \fI$HOME/.icons\fR directory named with the application's instance name and the .icon suffix, a similar file in the \fI/usr/lib/images\fR directory, a file in \fI$HOME/.icons\fR with the application's class name, class-name.icon file in \fI/usr/lib/images\fR
+(\fIDEFAULT\fR) the default icon file in \fI$HOME/default.icon\fR
+\fI/usr/lib/images/default.icon\fR
+(\fISCREEN\fR) a last resort of copying the pixmap from the screen after a "quick" minimization of the top-level window.
+The order that Iconbar tries each of these methods in an attempt to resolve the application's icon is specified as a colon separated string for this option. The default is \fIWMHINTS:FILES:DEFAULT:SCREEN\fR. Resource: \fBpath\fR.
+
+.IP "-\fBraise\fR \fITrue\fR|\fIFalse\fR"
+If \fITrue\fR (default) causes the iconbar window to be continuously raised to the top of the window stack, prevented it from being covered by overlapping windows. Resource: \fBraise\fR.
+
+.IP "-\fBscale\fR \fIfactor\fR"
+A floating point scale \fIfactor\fR in the range from 0.1 to 1.0 that is used to determine the size of the "non-magnified" (small) icon pixmap in the iconbar window. Recall that the nominal (big) \fB4dwm(1X)\fR icon size is 85x67 pixels. The default value is \fI0.75\fR. Resource: \fBscale\fR.
+
+.IP "-\fBshape\fR \fITrue\fR|\fIFalse\fR"
+A boolean value that determines if the X SHAPE extension will be used to trim the magnified icon windows with smaller than full size icons (typically those with icon_mask hints). The default value is \fITrue\fR. Resource: \fBshape\fR.
+
+.IP "-\fBtint\fR \fITrue\fR|\fIFalse\fR"
+A boolean value that determines if applications running on remote hosts will have their icons automatically tinted. The default value is \fITrue\fR. Resource: \fBtint\fR.
+
+
+.IP "-\fBtoolchestManage\fR \fITrue\fR|\fIFalse\fR"
+A boolean value that determine if iconbar will attempt to manage the state of the IRIX application \fB/usr/bin/X11/toolchest\fR. If \fITrue\fR, iconbar will perform two window management tasks: it will attempt to raise the \fbtoolchest\fR window when it is obscured, and it will force the window to remain at the geometry (root window X,Y) coordinates specified by the \fBtoolchestX\fR and \fBtoolchestY\fR resources. The default value is \fIFalse\fR. Resource: \fBtoolchestManage\fR.
+
+.IP "-\fBtoolchestX\fR \fIcoordinate\fR"
+The (root) window X coordinate value to place the \fBtoolchest\fR top window when the \fBtoolchestManage\fR resource is set to \fBTrue\fR. The default value is \fI1\fR. Resource: \fBtoolchestX\fR.
+
+.IP "-\fBtoolchestY\fR \fIcoordinate\fR"
+The (root) window Y coordinate value to place the \fBtoolchest\fR top window when the \fBtoolchestManage\fR resource is set to \fBTrue\fR. The default value is \fI1\fR. Resource: \fBtoolchestY\fR.
+
+.SH USAGE
+Iconbar may be invoked from the command line. It's a good idea to first disable the \fIiconbox\fR from the desktop. This can be done graphically via the \fBtoolchest\fR(1X) menus \fIDesktop->Customize->Windows\fR and unchecking the box next to \fIDisplay Windows Overview\fR.
+
+To access a graphical menu that controls the toggling of some of the interface options and also allows the icons to be rearranged, use the \fIRight\fR or \fIMiddle\fR mouse-button when over an icon pixmap.
+
+To exit iconbar in a controlled manner either use the pop-up option menu described above or else simply send a SIGHUP to the process using the \fBkill\fR(1) command with argument \fI-HUP\fR followed by the process id number.
+
+If iconbar terminates unexpectedly, the desktop icon windows may be left in an inaccessible state. To rectify this, restart the window manager. The restart can be accomplished from the \fBtoolchest\fR(1X) or via the command \fBtellwm\fR(1X) with the argument \fIrestart\fR.
+
+.SH EXAMPLES
+A sample shell command line launch of iconbar that would disable the magnification and auto-hide options, eliminate the icon margins and ignore the \fBtoolchest\fR(1X), \fBgr_osview\fR(1) and \fBov\fR(1) applications is as follows:
+
+.HP 
+iconbar -magnify False -hide False -margin 0 -ignoreApps ToolChest:gr_osview:Desks Overview
+.LP
+Alternately, a user could place in his or her .Xdefaults file and achieve identical results:
+
+.P
+Iconbar*magnify:     False
+.br
+Iconbar*hide:        False
+.br
+Iconbar*margin:      0
+.br
+Iconbar*ignoreApps:  ToolChest:gr_osview:Desks Overview
+
+.SH FILES
+.IP "\fB/usr/lib/images/*.icon\fR"
+system directory searched for \fBrgb\fR(4) format icon image files
+.IP "\fI$HOME\fB/.icons/*.icon\fR"
+user directory searched for \fBrgb\fR(4) format icon image files
+.IP "\fB/usr/lib/images/default.icon\fR"
+the default icon image file
+
+
+.SH BUGS
+The parsing of the \fBignoreApps\fR resource string is kludgey and may be non-portable.
+
+Some application icons are ignored (e.g. \fBgr_osview\fR).
+
+The \fIkeyboard grab\fR implied for the \fIEscape\fR and \fIspace bar\fR quick hide may not always release.
+
+.SH AUTHORS
+
+Steven Queen, Antony Fountain, and Bryan Sawler
+
+.SH ACKNOWLEDGMENTS
+Thanks to all of the testers at http://www.nekochan.net for their patience, feedback and support.
+
+.SH SEE ALSO
+\fB4dwm\fR(1X), \fBtoolchest\fR(1X), \fBkill\fR(1), \fBxprop\fR(1), \fBtellwm\fR(1X), \fBrgb\fR(4), \fBgr_osview\fR(1), \fBov\fR(1)

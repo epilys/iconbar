@@ -1,0 +1,77 @@
+INTRODUCTION
+------------
+
+I've been working on a small desktop application called iconbar which I hope could become a replacement for the 4dwm's (mwm's) iconbox application. This effort was mostly inspired by finding the Nekochan.net site and performing the Nekochan "transformation" on my desktop. By that I mean: installing a background image, adding aterm transparency, changing the desktop boarders, nixieclock, etc. It seem to me a better icon management utility was also required to complete the make over. Another catalyst was a discuss here in the forum that stated that SGI has pretty much given up on it's desktop development. While initially a depressing thought, I also felt empowered by all the knowledgeable folks here who were compiling and writing their own freeware. I also wanted to contribute to this community and help keep IRIX alive.
+
+BACKGROUND
+----------
+
+I had some experience with Motif programming, but had no idea how to access the icons of other applications...in fact I didn't quite understand the distinction between the X server and the window manager. I went on a massive web search for info on how to do this and emailed all of the established X gurus, several of which were kind enough to reply, but the universal answer was the icon pixmap of one application cannot be retrieved by another. The one exception to that was Antony Fountain who provide me a sneaky way to intercept the data but I held it in reserve since I felt it was too system intrusive and might put some folks off. So I resorted to doing a cheesy screen capture of the 4dwm icon window in order to get something up and running. (I also tried re-parenting the icon window, but that too was messy). The main draw back to the screen capture approach was that a "quick" minimize of each application was necessary in order to copy the pixmap which induced a "flicker" in each application at startup. By the way, "flicker" and "quick" are relative measures since if depends on the speed of the display's X server and if done too fast resulted in a garbled copy of pixels.  Anyway, I had that version running on my machine for a few weeks but felt it was too kludgey for release. What I did learn was that even is this intrusive and unstable state -- the iconbar was nice to have around. Even when it crashed a few times a day, I kept restarting it because I missed the convenience it provided. I hope you all agree.
+
+Meanwhile I got some books on X from the library and concentrated on understanding how a window manager works under X. I learned a ton -- chiefly that a window manager is just like any other  X client with one exception: it does "substructure redirection" on the root window in order to intercept the layout info for the other children of the root window (i.e. all top windows). Unfortunately for me, only ONE client at a time can ask for substructure redirection on a particular window and since I wanted to COOPERATE with 4dwm NOT REPLACE IT, I thought I was stuck.
+
+Instead I turned to the other source for icon pixmaps that 4dwm uses, the RGB images in /usr/lib/images (actually it first looks in $HOME/.icons). I figure I could force users who cared about the screen capture "flicker" could duplicate the icons' pixmaps manually and place them in one of the search directories. The problem here was how to read SGI's RBG image format. You may have seen my post
+at http://www.nekochan.net/phpBB2/viewtopic.php?t=738 which details some of my frustration and eventual success -- in short I looked for a conversion library and out of disgust with the C interface of SGI's IFL manually wrote a routine (By the way, I do like the RGB format).
+
+In parallel, my late night reading paid off. I found that the icon pixmap is sent to the window manager one of two ways: as an icon window hint or as a pixmap hint. The O'Reilly X books showed me how to read those hints and I was off! (Actually, so far I've only implemented the latter which seems to be a much more commonly used method -- a notable exception is SGI's mailbox application). I am very proud of have implemented this, precisely because it does what I was told from the beginning could not be done. 
+
+An unexpected payoff occurred with the gnome applications that have long given me trouble on my Octane2 with V6 graphics (see http://www.nekochan.net/phpBB2/viewtopic.php?t=761) -- the absent/garbled icons are caused by the gnome application telling the window manager that it's icon pixmap has a depth of 30 bits (i.e. the best visual for the system) instead of the correct 24 bits. I could plainly see the numeric difference in the WMHint property run on a system with Vpro graphics versus an older system with SE graphics. Mystery solved but problem not fixed!
+
+One last piece to the story. Motif expert Antony Fountain of "Ask Antony" fame pointed out that the big SGI icons are probably a bit dated in appearance and that today's users would prefer something smaller. I was also thinking along these lines having seen (but not used) the Mac OS X solution. Antony show me how to scale XImages, so the magnification/demagnification of the icons is rightfully credited to him.
+
+INSTALL
+-------
+
+I have made a tardist of the alpha test version for use with the IRIX Software Manager. By default it selects a mips4, Motif 2.1 version of the software (I built it under 6.5.20f using the MIPSPro 7.3 C compiler). Folks with machines that predate the R10000 and/or do not have the feature stream with Motif 2.1 loaded can optionally select a mips3, Motif 1.2 binary executable instead.
+
+down load it from:  http://www.nekochan.net/downloads/iconbar-alpha.tardist
+
+After install, just type (with /usr/local/bin in the execute path) iconbar to run, or iconbar -help for a list of options. It's a good idea to turn off the 4dwm iconbox application first which can be done from the toolchest (Desktop->
+Customize->Windows->Display Windows Overview[uncheck]).
+
+To use iconbar, bring the pointer down to the 1-pixel thick line at the bottom center of the screen. It should like like this after it pops up:
+
+You get a pop-up menu by right clicking on an icon.
+
+
+
+ROAD MAP
+--------
+
+Here's a few other idea that I'd like to explore some time in the future:
+
+- a mailbox notifier
+- options for the location and size of the bar (not just bottom center)
+- a means of specifying a preferred sorting (i.e. I like the Mozilla icon in the first slot when it open)
+- variable icon widths
+- a hook into the toolchest
+- improved transparency effects
+- multiple desktop (desks) handling (some kind of modality)
+- stacking icons vertically that are of the same class (i.e. all the Nedit icons collected together with a pop-up sub-bar)
+
+Let me know what else you all would like to see via the sourceforge project page features requests.
+
+CAVEATS
+-------
+
+If Iconbar crashes, you may have to restart the window manger by: System->Utilities->Restart Window Manager.
+
+* Animated icons don't: For now, I have ignored the method by which an application supplies an icon window under it control for animation (e.g. SGI mailbox).
+
+* Missing applications: I have explicitly told the program to ignore the following named applications for now: ToolChest, iconbox, iconbar, nixieclock, gr_osview, xeyes, Desks Overview, top, bottom and xbiff.
+
+* Multiple desks: I haven't looked into it's performance with multiple desk at all, it on the to do list.
+
+* Sometimes the keyborad grab doesn't release.
+
+* No shaped borders on multirow bars.
+
+--------
+
+I've had good luck with the stability of the 0.1 release. I've run it on my desktop for months now without incident. Right now, I find that I can't function in IRIX too well without it.
+
+This has been a labor of love. Thanks for all the great feedback and interest.
+Enjoy!
+
+squeen@users.sourceforge.net
+May 27, 2004

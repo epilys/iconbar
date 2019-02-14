@@ -1,0 +1,56 @@
+--------------------------------------------------------------------------------
+PREREQUISITS
+--------------------------------------------------------------------------------
+The program only requires libraries that are included in IRIX 6.5, but may
+not be installed by default. They are:
+
+   libXmu.so  =>    /usr/lib32/libXmu.so   
+   libXm.so.2  =>   /usr/lib32/libXm.so.2  
+   libXt.so  =>     /usr/lib32/libXt.so    
+   libX11.so.1  =>  /usr/lib32/libX11.so.1 
+   libm.so  =>      /usr/lib32/libm.so     
+   libc.so.1  =>    /usr/lib32/libc.so.1   
+   libXext.so  =>   /usr/lib32/libXext.so  
+   libgen.so  =>    /usr/lib32/libgen.so   
+   libXpm.so.2  =>  /usr/lib32/libXpm.so.2 
+   
+Specifically, the default is to link with the Motif 2.1 libraries that are
+part of the IRIX 6.5 feature stream. They can easily be redirected to the
+maintainance stream's Motif 1.2 libraries by editing the makefile.
+
+When building with gcc or an older (pre-R10K) system, the -mips4 compiler option
+should be changed to -mips3.
+
+--------------------------------------------------------------------------------
+BUILD
+--------------------------------------------------------------------------------
+To build from the source code just cd to the directory containing the source
+and issue the shell command
+
+   gmake iconbar
+   
+which assumes that GNU make has been installed. If not, it is availible from
+http://freeware.sgi.com. The make script will use the CC environment variable
+if it is set for its ANSI C compiler, or else just defaults to cc.
+
+Alternately, if not all of the prerequisits are met, you might try
+
+   gmake mips3 
+   
+--------------------------------------------------------------------------------
+INSTALL
+--------------------------------------------------------------------------------
+By default, the makefile will install the executable in /usr/local/bin, the
+man page in /usr/local/man/man1. To select different installation locations,
+set the BINDIR and MANDIR environment variables. If the directories don't exist
+that will be created (assuming the permissions are set correctly).
+
+To install:
+
+   gmake install
+   
+or for the mips3, Motif 1.2 version,
+
+   gmake install-mips3
+   
+      

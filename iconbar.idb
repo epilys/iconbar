@@ -1,0 +1,10 @@
+f 0644 root sys usr/lib/filetype/install/iconbar.ftr usr/people/queen/iconbar/sf/iconbar/iconbar.ftr iconbar.optional.filetypes
+f 0644 root sys usr/lib/filetype/install/iconlib/iconbar.fti usr/people/queen/iconbar/sf/iconbar/iconbar.fti iconbar.optional.filetypes
+f 0755 root sys usr/nekoware/bin/iconbar usr/people/queen/iconbar/sf/iconbar/iconbar-mips3 iconbar.sw.mips3 postop(tag 0x100018 /usr/nekoware/bin/iconbar) exitop(/sbin/install -idb myIdbTag -F /usr/lib/desktop/iconcatalog/pages/C/Applications -lns /usr/nekoware/bin/iconbar Iconbar) mach(CPUBOARD=IP32,GFXBOARD=KONA,GFXBOARD=MGRAS,GFXBOARD=CRIME,SUBGR=RACER,SUBGR=IP30,SUBGR=CRM)
+f 0755 root sys usr/nekoware/bin/iconbar usr/people/queen/iconbar/sf/iconbar/iconbar iconbar.sw.mips4 postop(tag 0x100018 /usr/nekoware/bin/iconbar) exitop(/sbin/install -idb myIdbTag -F /usr/lib/desktop/iconcatalog/pages/C/Applications -lns /usr/nekoware/bin/iconbar Iconbar) mach(CPUBOARD=IP32,GFXBOARD=KONA,GFXBOARD=MGRAS,GFXBOARD=CRIME,SUBGR=RACER,SUBGR=IP30,SUBGR=CRM)
+f 0644 root sys usr/nekoware/man/man1/iconbar.1 usr/people/queen/iconbar/sf/iconbar/iconbar.1 iconbar.man.man1
+f 0644 root sys usr/nekoware/share/iconbar/blend_image.rgb usr/people/queen/iconbar/sf/iconbar/blend_image.rgb iconbar.optional.masks
+f 0644 root sys usr/nekoware/share/iconbar/blend_mask.rgb usr/people/queen/iconbar/sf/iconbar/blend_mask.rgb iconbar.optional.masks
+f 0644 root sys usr/nekoware/share/iconbar/iconbar_image.rgb usr/people/queen/iconbar/sf/iconbar/iconbar_image.rgb iconbar.optional.masks
+f 0644 root sys usr/nekoware/share/iconbar/iconbar_mask.rgb usr/people/queen/iconbar/sf/iconbar/iconbar_mask.rgb iconbar.optional.masks
+f 0644 root sys usr/nekoware/src/iconbar-0.8.tar.gz usr/people/queen/iconbar/sf/iconbar/iconbar.tar.gz iconbar.optional.src
